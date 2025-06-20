@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Internet Speed Test</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function showSpinner() {
+            document.getElementById("spinner").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>🌐 Internet Speed Test</h1>
+    <form th:action="@{/start}" method="get" onsubmit="showSpinner()">
+        <button type="submit">Start Test</button>
+    </form>
+
+    <div id="spinner" class="loader" style="display:none;"></div>
+
+    <div class="result" th:if="${result}">
+        <p>📥 Download: <strong th:text="${result.downloadMbps} + ' Mbps'"></strong></p>
+        <p>📤 Upload: <strong th:text="${result.uploadMbps} + ' Mbps'"></strong></p>
+        <p>📶 Ping: <strong th:text="${result.pingMs} + ' ms'"></strong></p>
+    </div>
+
+    <div th:if="${error}">
+        <p style="color:red;" th:text="${error}"></p>
+    </div>
+</div>
+</body>
+</html>
